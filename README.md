@@ -5,6 +5,30 @@
 
 > Docker image for running golang.
 
+## Build
+
+Run this command to build an image.
+
+```
+docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t wolffaxn/docker-golang .
+```
+
+To enable BuildKit build set the DOCKER_BUILDKIT=1 environment variable when invoking the docker build command,
+such as:
+
+```
+export DOCKER_BUILDKIT=1
+docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t wolffaxn/docker-golang .
+```
+
+## Run
+
+```
+❯ docker run --rm -it wolffaxn/docker-golang
+go version go1.15.2 linux/amd64
+
+```
+
 ## License
 
 Released under the MIT License. See [license](LICENSE.md) for details.
