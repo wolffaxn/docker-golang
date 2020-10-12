@@ -1,13 +1,18 @@
 FROM debian:buster-slim
 
 ARG BUILD_DATE
+ARG VCS_REF
+ARG VCS_URL
 
 ARG GO_VERSION
 ENV GO_VERSION=${GO_VERSION:-1.15.2}
 
 # metadata
 LABEL maintainer="Alexander Wolff <wolffaxn@gmail.com>" \
-  org.label-schema.build-date=${BUILD_DATE}
+  org.label-schema.build-date=${BUILD_DATE} \
+  org.label-schema.docker.dockerfile="/Dockerfile" \
+  org.label-schema.vcs-ref=${VCS_REF} \
+  org.label-schema.vcs-url=${VCS_URL}
 
 # dependencies
 ENV DEBIAN_FRONTEND=noninteractive
