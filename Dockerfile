@@ -37,7 +37,11 @@ RUN set -eux \
   && tar -xvzf /tmp/go.tar.gz -C /usr/local \
   && rm -rf /tmp/*
 
-ENV PATH $PATH:/usr/local/go/bin
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-ENTRYPOINT ["/usr/local/go/bin/go"]
-CMD ["version"]
+RUN set -eux \
+  && mkdir -p "$GOPATH/bin" "$GOPATH/pkg" "$GOPATH/src" \
+  && chmod -R 777 "$GOPATH"
+
+WORKDIR $GOPATH

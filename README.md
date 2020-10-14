@@ -23,10 +23,26 @@ make
 
 ## Run
 
-```
-❯ docker run --rm -it wolffaxn/docker-golang:0.9.0
-go version go1.15.2 linux/amd64
+Show go version
 
+```
+❯ docker run --rm -it wolffaxn/docker-golang:0.9.0 go version
+go version go1.15.2 linux/amd64
+```
+
+Run test example
+
+```
+❯ docker run --rm -it -v "$(pwd)/test":/go -w /go wolffaxn/docker-golang:0.9.0 go run main.go
+hello, world
+```
+
+Build and run test example (works only on linux/amd64)
+
+```
+❯ docker run --rm -it -v "$(pwd)/test":/go -w /go wolffaxn/docker-golang:0.9.0 go build -o helloworld main.go
+❯ cd test && ./helloworld
+hello, world
 ```
 
 ## License
