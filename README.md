@@ -45,6 +45,17 @@ Build and run test example (works only on linux/amd64)
 hello, world
 ```
 
+## Test
+
+```
+❯ cd test && make
+docker build -t wolffaxn/docker-golang-test .
+[+] Building 2.3s (14/14) FINISHED
+...
+docker run --rm -it wolffaxn/docker-golang-test
+hello, world
+```
+
 ## License
 
 Released under the MIT License. See [license](LICENSE.md) for details.
