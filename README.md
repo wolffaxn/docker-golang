@@ -24,7 +24,7 @@ make
 ## Run
 
 ```
-❯ docker run --rm -it wolffaxn/docker-golang
+❯ docker run --rm -it wolffaxn/docker-golang:0.9.0
 go version go1.15.2 linux/amd64
 
 ```
