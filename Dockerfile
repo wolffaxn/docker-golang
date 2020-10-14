@@ -6,6 +6,8 @@ ARG VCS_URL
 
 ARG GO_VERSION
 ENV GO_VERSION=${GO_VERSION:-1.15.2}
+ARG GO_SHA256
+ENV GO_SHA256 ${JAVA_SHA256:-b49fda1ca29a1946d6bb2a5a6982cf07ccd2aba849289508ee0f9918f6bb4552}
 
 # metadata
 LABEL maintainer="Alexander Wolff <wolffaxn@gmail.com>" \
@@ -31,6 +33,7 @@ RUN set -eux \
 RUN set -eux \
   && locale-gen en_US.UTF-8 \
   && curl -Lso /tmp/go.tar.gz https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz \
+  && echo "${GO_SHA256} /tmp/go.tar.gz" | sha256sum -c - \
   && tar -xvzf /tmp/go.tar.gz -C /usr/local \
   && rm -rf /tmp/*
 
