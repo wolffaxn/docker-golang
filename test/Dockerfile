@@ -1,4 +1,4 @@
-FROM wolffaxn/docker-golang:0.9.0 AS builder
+FROM wolffaxn/docker-golang:1.15.3 AS builder
 
 WORKDIR /go
 COPY . /go
