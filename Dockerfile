@@ -24,7 +24,6 @@ RUN set -eux \
   build-essential \
   ca-certificates \
   curl \
-  git \
   locales \
   && rm -Rf /var/lib/apt/lists/* \
   && apt-get clean
