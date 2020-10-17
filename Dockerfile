@@ -16,31 +16,29 @@ LABEL maintainer="Alexander Wolff <wolffaxn@gmail.com>" \
   org.label-schema.vcs-ref=${VCS_REF} \
   org.label-schema.vcs-url=${VCS_URL}
 
-# dependencies
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -eux \
+  # dependencies
   && apt-get update -qq \
   && apt-get install -qq --no-install-recommends \
   build-essential \
   ca-certificates \
   curl \
   locales \
-  && rm -Rf /var/lib/apt/lists/* \
-  && apt-get clean
-
-# golang
-RUN set -eux \
   && locale-gen en_US.UTF-8 \
+  # golang
   && curl -Lso /tmp/go.tar.gz https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz \
   && echo "${GO_SHA256} /tmp/go.tar.gz" | sha256sum -c - \
   && tar -xvzf /tmp/go.tar.gz -C /usr/local \
-  && rm -rf /tmp/*
-
-ENV GOPATH /go
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-
-RUN set -eux \
+  && rm -rf /tmp/* \
   && mkdir -p "$GOPATH/bin" "$GOPATH/pkg" "$GOPATH/src" \
-  && chmod -R 777 "$GOPATH"
+  && chmod -R 777 "$GOPATH" \
+  # cleanup
+  && apt-get purge --auto-remove -y curl \
+  && apt-get clean \
+  && rm -Rf /var/lib/apt/lists/*
 
 WORKDIR $GOPATH
