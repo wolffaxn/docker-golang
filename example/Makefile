@@ -1,7 +1,7 @@
 .PHONY: default
 default: test
 
-DOCKER_IMAGE ?= wolffaxn/docker-golang-test
+DOCKER_IMAGE ?= wolffaxn/docker-golang-example
 
 .PHONY: test
 test: docker-build docker-run
