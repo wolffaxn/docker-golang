@@ -30,29 +30,56 @@ Show go version
 go version go1.15.3 linux/amd64
 ```
 
-Run test example
+Run example
 
 ```
-❯ docker run --rm -it -v "$(pwd)/test":/go -w /go wolffaxn/docker-golang:1.15.3 go run main.go
+❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 go run main.go
 hello, world
 ```
 
-Build and run test example (works only on linux/amd64)
+Build executable for mac platform
 
 ```
-❯ docker run --rm -it -v "$(pwd)/test":/go -w /go wolffaxn/docker-golang:1.15.3 go build -o helloworld main.go
-❯ cd test && ./helloworld
-hello, world
+❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=darwin GOARCH=amd64 go build -o helloworld main.go"
+❯ file example/helloworld
+example/helloworld: Mach-O 64-bit executable x86_64
 ```
 
-## Test
+Build executable for linux platform
 
 ```
-❯ cd test && make
-docker build -t wolffaxn/docker-golang-test .
-[+] Building 2.3s (14/14) FINISHED
+❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 go build -o helloworld main.go
+❯ file example/helloworld
+example/helloworld: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+```
+
+or
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=linux GOARCH=amd64 go build -o helloworld main.go"
+❯ file example/helloworld
+example/helloworld: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+```
+
+Build executable for windows platform
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=windows GOARCH=amd64 go build -o helloworld main.go"
+❯ file example/helloworld
+example/helloworld: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
+```
+
+## Example
+
+Build and run example
+
+```
+❯ cd example
+❯ make
+docker build -t wolffaxn/docker-golang-example .
+[+] Building 0.6s (14/14) FINISHED
 ...
-docker run --rm -it wolffaxn/docker-golang-test
+docker run --rm -it wolffaxn/docker-golang-example
 hello, world
 ```
 
