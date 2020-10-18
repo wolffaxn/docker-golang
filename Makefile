@@ -12,7 +12,7 @@ GIT_COMMIT := $(shell git rev-parse --short HEAD)
 GIT_URL := $(shell git config --get remote.origin.url)
 # get version
 VERSION := $(strip $(shell cat version.txt))
-# split version imto major and minor version
+# split version into major and minor version
 SUB_DIR := $(call split-version,1,$(VERSION)).$(call split-version,2,$(VERSION))
 
 . PHONY: all
