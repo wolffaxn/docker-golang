@@ -23,24 +23,42 @@ make
 
 ## Run
 
-Show go version
+Show go versions
+
+Docker image `wolffaxn/golang:1.15.3-buster-slim`
 
 ```
-❯ docker run --rm -it wolffaxn/docker-golang:1.15.3 go version
+❯ docker run --rm -it wolffaxn/golang:1.15.3-buster-slim go version
+go version go1.15.3 linux/amd64
+```
+
+Docker image `wolffaxn/golang:1.15.3-buster-slim-musl`
+
+```
+❯ docker run --rm -it wolffaxn/golang:1.15.3-buster-slim-musl go version
 go version go1.15.3 linux/amd64
 ```
 
 Run example
 
+Docker image `wolffaxn/golang:1.15.3-buster-slim`
+
 ```
-❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 go run main.go
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim go run main.go
+hello, world
+```
+
+Docker image `wolffaxn/golang:1.15.3-buster-slim-musl`
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim-musl go run main.go
 hello, world
 ```
 
 Build executable for mac platform
 
 ```
-❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=darwin GOARCH=amd64 go build -o helloworld main.go"
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim /bin/sh -c "GOOS=darwin GOARCH=amd64 go build -o helloworld main.go"
 ❯ file example/helloworld
 example/helloworld: Mach-O 64-bit executable x86_64
 ```
@@ -48,15 +66,7 @@ example/helloworld: Mach-O 64-bit executable x86_64
 Build executable for linux platform
 
 ```
-❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 go build -o helloworld main.go
-❯ file example/helloworld
-example/helloworld: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
-```
-
-or
-
-```
-❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=linux GOARCH=amd64 go build -o helloworld main.go"
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim /bin/sh -c "GOOS=linux GOARCH=amd64 go build -o helloworld main.go"
 ❯ file example/helloworld
 example/helloworld: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
 ```
@@ -64,23 +74,9 @@ example/helloworld: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statica
 Build executable for windows platform
 
 ```
-❯ docker run --rm -it -v "$(pwd)/example":/go -w /go wolffaxn/docker-golang:1.15.3 /bin/sh -c "GOOS=windows GOARCH=amd64 go build -o helloworld main.go"
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim /bin/sh -c "GOOS=windows GOARCH=amd64 go build -o helloworld main.go"
 ❯ file example/helloworld
 example/helloworld: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
-```
-
-## Example
-
-Build and run example
-
-```
-❯ cd example
-❯ make
-docker build -t wolffaxn/docker-golang-example .
-[+] Building 0.6s (14/14) FINISHED
-...
-docker run --rm -it wolffaxn/docker-golang-example
-hello, world
 ```
 
 ## License
