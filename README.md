@@ -5,55 +5,90 @@
 
 > Docker image for running golang.
 
-## Build
+# Setup
 
-Run this command to build an image.
+You'll need `docker` on your machine, as well as the `git` command.
+
+Start a shell and clone this repository.
 
 ```
-make
+git clone https://github.com/wolffaxn/docker-golang.git
+cd docker-golang
 ```
 
-To enable BuildKit build set the DOCKER_BUILDKIT=1 environment variable when invoking the docker build command,
-such as:
+# Build, run and test all images using the docker command
+
+## Set environment variables
+
+To enable BuildKit build set the DOCKER_BUILDKIT=1 environment variable when invoking the docker build command.
 
 ```
 export DOCKER_BUILDKIT=1
+```
+
+## Build (using docker command)
+
+To build the `buster-slim` image, run the following command.
+
+```
+docker build . -t wolffaxn/golang:1.15.3-buster-slim 1.15/buster-slim
+```
+
+To build the `buster-slim-musl` image, run the following command.
+
+```
+docker build . -t wolffaxn/golang:1.15.3-buster-slim-musl 1.15/buster-slim-musl
+```
+
+## Build (using Makefile)
+
+Run this command to build all docker images.
+
+```
 make
 ```
 
-## Run
+## Run (using docker command)
 
-Show go versions
-
-Docker image `wolffaxn/golang:1.15.3-buster-slim`
+Now run the new image and show `go` version.
 
 ```
 ❯ docker run --rm -it wolffaxn/golang:1.15.3-buster-slim go version
 go version go1.15.3 linux/amd64
 ```
 
-Docker image `wolffaxn/golang:1.15.3-buster-slim-musl`
+and
 
 ```
 ❯ docker run --rm -it wolffaxn/golang:1.15.3-buster-slim-musl go version
 go version go1.15.3 linux/amd64
 ```
 
-Run example
+Run the following command to show the `musl-gcc` version
 
-Docker image `wolffaxn/golang:1.15.3-buster-slim`
+```
+❯ docker run --rm -it wolffaxn/golang:1.15.3-buster-slim-musl musl-gcc --version
+gcc (Debian 8.3.0-6) 8.3.0
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+Type the following command to run the `helloworld` example.
 
 ```
 ❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim go run main.go
 hello, world
 ```
 
-Docker image `wolffaxn/golang:1.15.3-buster-slim-musl`
+and
 
 ```
 ❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim-musl go run main.go
 hello, world
 ```
+
+## Build executables for macos, linux and windows
 
 Build executable for mac platform
 
@@ -77,6 +112,20 @@ Build executable for windows platform
 ❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim /bin/sh -c "GOOS=windows GOARCH=amd64 go build -o helloworld main.go"
 ❯ file example/helloworld
 example/helloworld: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
+```
+
+## Running the unit tests
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim go test
+go: downloading github.com/stretchr/testify v1.6.1
+go: downloading github.com/davecgh/go-spew v1.1.0
+go: downloading gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+go: downloading github.com/pmezard/go-difflib v1.0.0
+hello, world
+PASS
+ok  	github.com/wolffaxn/golang-example	0.005s
+
 ```
 
 ## License
