@@ -16,7 +16,7 @@ git clone https://github.com/wolffaxn/docker-golang.git
 cd docker-golang
 ```
 
-# Build, run and test all images using the docker command
+# Build and run all images using the docker command
 
 ## Set environment variables
 
@@ -74,20 +74,6 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-Type the following command to run the `helloworld` example.
-
-```
-❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim go run main.go
-hello, world
-```
-
-and
-
-```
-❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim-musl go run main.go
-hello, world
-```
-
 ## Build executables for macos, linux and windows
 
 Build executable for mac platform
@@ -112,6 +98,24 @@ Build executable for windows platform
 ❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim /bin/sh -c "GOOS=windows GOARCH=amd64 go build -o helloworld main.go"
 ❯ file example/helloworld
 example/helloworld: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
+```
+
+# Test
+
+## Run 'helloworld' example
+
+Type the following command to run the `helloworld` example.
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim go run main.go
+hello, world
+```
+
+and
+
+```
+❯ docker run --rm -it -v "$(pwd)/example":/example -w /example wolffaxn/golang:1.15.3-buster-slim-musl go run main.go
+hello, world
 ```
 
 ## Running the unit tests
