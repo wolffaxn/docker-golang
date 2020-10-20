@@ -1,9 +1,10 @@
 split-version = $(word $1,$(subst ., ,$2))
 
-BASE_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-
+# docker image name
 DOCKER_IMAGE = wolffaxn/golang
 
+# base directory
+BASE_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 # get build date
 BUILD_DATE := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 # get the latest commit
