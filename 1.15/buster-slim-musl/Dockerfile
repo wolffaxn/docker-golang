@@ -32,6 +32,7 @@ RUN set -eux; \
   apt-get update -qq; \
   apt-get install -qq --no-install-recommends \
   curl \
+  gnupg \
   ; \
   # golang
   curl -Lso /tmp/go.tar.gz https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz; \
@@ -42,6 +43,13 @@ RUN set -eux; \
   chmod -R 777 "$GOPATH"; \
   # musl
   curl -Lso /tmp/musl.tar.gz https://musl.libc.org/releases/musl-${MUSL_VERSION}.tar.gz; \
+  curl -Lso /tmp/musl.tar.gz.asc https://musl.libc.org/releases/musl-${MUSL_VERSION}.tar.gz.asc; \
+  curl -Lso /tmp/KEYS https://musl.libc.org/musl.pub; \
+  export GNUPGHOME="$(mktemp -d)"; \
+  gpg --batch --import /tmp/KEYS; \
+  gpg --batch --verify /tmp/musl.tar.gz.asc /tmp/musl.tar.gz; \
+  gpgconf --kill all; \
+  rm -rf "$GNUPGHOME"; \
   tar -xvzf /tmp/musl.tar.gz -C /tmp; \
   cd /tmp/musl-${MUSL_VERSION}; \
   ./configure; \
@@ -49,7 +57,10 @@ RUN set -eux; \
   make install; \
   rm -rf /tmp/*; \
   # cleanup
-  apt-get purge --auto-remove -y curl; \
+  apt-get purge --auto-remove -y \
+  curl \
+  gnupg \
+  ; \
   apt-get clean; \
   rm -Rf /var/lib/apt/lists/*
 
