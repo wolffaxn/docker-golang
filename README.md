@@ -2,6 +2,8 @@
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wolffaxn/docker-golang/master.svg)](https://github.com/wolffaxn/docker-golang)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wolffaxn/golang.svg)](https://hub.docker.com/r/wolffaxn/golang)
+[![Docker Stars](https://img.shields.io/docker/stars/wolffaxn/golang.svg)](https://hub.docker.com/r/wolffaxn/golang)
 
 > Docker image with golang installed.
 
